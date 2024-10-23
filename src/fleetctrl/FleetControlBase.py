@@ -600,7 +600,23 @@ class FleetControlBase(metaclass=ABCMeta):
             base_fare_factor, dist_fare_factor, gen_factor = 1, 1, 1
         fare = (self.base_fare * base_fare_factor + prq.init_direct_td * self.dist_fare * dist_fare_factor
                 + prq.init_direct_tt * self.time_fare) * gen_factor * pax_factor
-        final_fare = int(max(fare, self.min_fare))
+        # I Initialize final_fare with a default value 
+        final_fare = self.min_fare
+        try: 
+            final_fare = int(max(fare, self.min_fare))
+        except(ValueError): 
+            print('sim_time: ', sim_time)
+            print('prq: ', prq)
+            print('assigned_veh_plan: ', assigned_veh_plan)
+            print(self.base_fare)
+            print(base_fare_factor)
+            print(prq.init_direct_td)
+            print(self.dist_fare)
+            print(dist_fare_factor)
+            print(prq.init_direct_tt)
+            print( self.time_fare)
+            print(gen_factor)
+            print(pax_factor)
         return final_fare
 
     def compute_current_fleet_utilization(self, sim_time : int) -> Tuple[float, float, int]:

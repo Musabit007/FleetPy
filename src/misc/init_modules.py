@@ -171,6 +171,7 @@ def load_simulation_environment(scenario_parameters):
     sim_env_dict = get_src_simulation_environments()
     # load simulation environment instance
     sim_env_class = load_module(sim_env_dict, sim_env_str, "Simulation environment")
+    print(f"Sim Env class: {sim_env_class}")
     return sim_env_class(scenario_parameters)
 
 
@@ -186,6 +187,7 @@ def load_routing_engine(network_type, network_dir, network_dynamics_file_name=No
     re_dict = get_src_routing_engines()
     # load routing engine instance
     re_class = load_module(re_dict, network_type, "Network module")
+    print(f"RE_Class: {re_class}")
     return re_class(network_dir, network_dynamics_file_name=network_dynamics_file_name)
 
 
@@ -212,7 +214,9 @@ def load_fleet_control_module(op_fleet_control_class_string):
     # FleetPy fleet control options
     op_dict = get_src_fleet_control_modules()
     # get fleet control class
-    return load_module(op_dict, op_fleet_control_class_string, "Fleet control module")
+    fleet_control = load_module(op_dict, op_fleet_control_class_string, "Fleet control module")
+    print(f"Fleet_Control: {fleet_control}")
+    return fleet_control
 
 
 def load_repositioning_strategy(op_repo_class_string):
@@ -224,7 +228,9 @@ def load_repositioning_strategy(op_repo_class_string):
     # FleetPy repositioning options
     repo_dict = get_src_repositioning_strategies()
     # get repositioning class
-    return load_module(repo_dict, op_repo_class_string, "Repositioning module")
+    repositioning_strategy = load_module(repo_dict, op_repo_class_string, "Repositioning module")
+    print(f"repositioning_strategy: {repositioning_strategy}")
+    return repositioning_strategy
 
 
 def load_charging_strategy(op_charging_class_string):
@@ -236,7 +242,9 @@ def load_charging_strategy(op_charging_class_string):
     # FleetPy charging options
     cs_dict = get_src_charging_strategies()
     # get charging strategy class
-    return load_module(cs_dict, op_charging_class_string, "Charging strategy module")
+    charging_strategy = load_module(cs_dict, op_charging_class_string, "Charging strategy module")
+    print(f"charging_strategy: {charging_strategy}")
+    return charging_strategy
 
 
 def load_dynamic_pricing_strategy(op_pricing_class_string):
@@ -248,7 +256,9 @@ def load_dynamic_pricing_strategy(op_pricing_class_string):
     # FleetPy dynamic pricing options
     dp_dict = get_src_dynamic_pricing_strategies()
     # get pricing strategy class
-    return load_module(dp_dict, op_pricing_class_string, "Dynamic pricing module")
+    dynamic_pricing_strategy = load_module(dp_dict, op_pricing_class_string, "Dynamic pricing module")
+    print(f"dynamic_pricing_strategy: {dynamic_pricing_strategy}")
+    return dynamic_pricing_strategy
 
 
 def load_dynamic_fleet_sizing_strategy(op_fleetsizing_class_string):
@@ -260,7 +270,9 @@ def load_dynamic_fleet_sizing_strategy(op_fleetsizing_class_string):
     # FleetPy dynamic fleet sizing options
     dfs_dict = get_src_dynamic_fleet_sizing_strategies()
     # get fleet sizing strategy class
-    return load_module(dfs_dict, op_fleetsizing_class_string, "Dynamic fleet sizing module")
+    dynamic_fleet_sizing_strateg = load_module(dfs_dict, op_fleetsizing_class_string, "Dynamic fleet sizing module")
+    print(f"dynamic_fleet_sizing_strateg: {dynamic_fleet_sizing_strateg}")
+    return dynamic_fleet_sizing_strateg
 
 
 def load_reservation_strategy(op_reservation_class_string):
@@ -271,7 +283,9 @@ def load_reservation_strategy(op_reservation_class_string):
     # FleetPy reservation control strategy options
     res_dict = get_src_reservation_strategies()
     # get reservation strategy class
-    return load_module(res_dict, op_reservation_class_string, "Reservation handling module")
+    reservation_strategy = load_module(res_dict, op_reservation_class_string, "Reservation handling module")
+    print(f"reservation_strategy: {reservation_strategy}")
+    return reservation_strategy
 
 
 def load_ride_pooling_batch_optimizer(op_batch_optimizer_string):
@@ -282,4 +296,6 @@ def load_ride_pooling_batch_optimizer(op_batch_optimizer_string):
     # FleetPy ride pooling optimization strategy options
     rbo_dict = get_src_ride_pooling_batch_optimizers()
     # get ridepooling batch optimizer class
-    return load_module(rbo_dict, op_batch_optimizer_string, "Ridepooling batch optimizer module")
+    ride_pooling_batch_optimizer = load_module(rbo_dict, op_batch_optimizer_string, "Ridepooling batch optimizer module")
+    print(f"ride_pooling_batch_optimizer: {ride_pooling_batch_optimizer}")
+    return ride_pooling_batch_optimizer

@@ -1,3 +1,5 @@
+import math
+import sys
 import logging
 from src.fleetctrl.planning.VehiclePlan import VehiclePlan
 from src.fleetctrl.RidePoolingBatchOptimizationFleetControlBase import RidePoolingBatchOptimizationFleetControlBase
@@ -176,7 +178,12 @@ class RidePoolingBatchAssignmentFleetcontrol(RidePoolingBatchOptimizationFleetCo
                 new_earliest_pu, new_latest_pu = pu_offer_tuple
                 add_offer[G_OFFER_PU_INT_START] = new_earliest_pu
                 add_offer[G_OFFER_PU_INT_END] = new_latest_pu
-            offer = TravellerOffer(rq.get_rid(), self.op_id, pu_time - rq.get_rq_time(), do_time - pu_time, int(rq.init_direct_td * self.dist_fare + self.base_fare),
+            # modify the calculation to avoid infinity
+            fare_value = rq.init_direct_td * self.dist_fare + self.base_fare
+            if math.isinf(fare_value):
+                # I'm trying this to handle infinity:
+                fare_value = sys.maxsize if fare_value > 0 else -sys.maxsize
+            offer = TravellerOffer(rq.get_rid(), self.op_id, pu_time - rq.get_rq_time(), do_time - pu_time, int(fare_value),
                     additional_parameters=add_offer)
             rq.set_service_offered(offer)
         else:

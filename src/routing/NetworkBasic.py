@@ -177,14 +177,23 @@ class NetworkBasic(NetworkBase):
         nodes_f = os.path.join(network_name_dir, "base", "nodes.csv")
         print(f"Loading nodes from {nodes_f} ...")
         nodes_df = pd.read_csv(nodes_f)
+
+        # gde 10.16.2024 - previous code required continuous integer index starting
+        # at zero.  This allows for an arbitrary index, in this case the OSM ID. 
+        nodes_df['node_index_copy'] = nodes_df['node_index']
+        nodes_df = nodes_df.set_index('node_index_copy')
+        
         self.nodes = nodes_df.apply(read_node_line, axis=1)
         #
         edges_f = os.path.join(network_name_dir, "base", "edges.csv")
         print(f"Loading edges from {edges_f} ...")
         edges_df = pd.read_csv(edges_f)
         for _, row in edges_df.iterrows():
+            #print(f"G_EDGE_FROM: {G_EDGE_FROM}, G_EDGE_TO: {G_EDGE_TO}")
             o_node = self.nodes[row[G_EDGE_FROM]]
             d_node = self.nodes[row[G_EDGE_TO]]
+            #print(o_node, d_node)
+            #print(f"{G_EDGE_FROM}: {o_node}, {G_EDGE_TO}: {d_node}")
             tmp_edge = Edge((o_node, d_node), row[G_EDGE_DIST], row[G_EDGE_TT])
             o_node.add_next_edge_to(d_node, tmp_edge)
             d_node.add_prev_edge_from(o_node, tmp_edge)
