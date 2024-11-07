@@ -71,6 +71,9 @@ class ParcelPlanRequest(PlanRequest):
         :param walking_time_end: walking time from dropoff to destination
         :param sub_rid_id: id of this plan request that differs from the traveller id; usefull if one customer can be represented by multiple plan requests
         """
+        # SMO Debug: 10/30/2024
+        MAX_TRAVEL_TIME = 3600  # Set a realistic maximum travel time in seconds
+
         # TODO: Variable Paketgröße erstellen
 
         # für Wartezeiten und Umwege etc.
@@ -108,12 +111,35 @@ class ParcelPlanRequest(PlanRequest):
         self.walking_time_end = walking_time_end
         #
         _, self.init_direct_tt, self.init_direct_td = routing_engine.return_travel_costs_1to1(self.o_pos, self.d_pos)
+        
+        # SMO DEBUG: 10/30/2024
+        # Fallback for infinite travel time
+        if self.init_direct_tt == float('inf'):
+            self.init_direct_tt = MAX_TRAVEL_TIME  # Set to a more manageable fallback time, e.g., 1 hour
+            
         # decision/output
         self.service_vehicle = None
         self.pu_time = None
         # constraints -> only in operator rq-class [pu: pick-up | do: drop-off, both start with boarding process]
 
         self.reservation_flag = False
+        #SMO DEBUG: A new code trial: 10/30/2024
+        # Time constraints setup
+        self.t_pu_earliest = max(self.rq_time + earliest_pickup_time, rq.earliest_start_time or 0)
+        self.t_pu_latest = min(self.rq_time + latest_pickup_time, rq.latest_start_time or LARGE_INT)
+        self.t_do_earliest = max(self.rq_time + earliest_drop_off_time, rq.earliest_drop_off_time or -1)
+        self.t_do_latest = min(self.rq_time + latest_drop_off_time, rq.latest_drop_off_time or LARGE_INT)
+        
+        # Validate time constraints before proceeding
+        if self.t_pu_earliest + self.init_direct_tt + boarding_time > self.t_do_latest:
+            raise ValueError(
+            f"Cannot fulfill request within time constraints: {self.t_pu_earliest} + "
+            f"{self.init_direct_tt} + {boarding_time} > {self.t_do_latest}. "
+            "Consider adjusting pickup, dropoff, or boarding time constraints."
+            )  
+         
+        # SMO Debug: 10/30/2024, comment out original code
+        """
         # earliest pu
         if earliest_pickup_time is None:
             earliest_pickup_time = 0
@@ -139,7 +165,8 @@ class ParcelPlanRequest(PlanRequest):
         
         if self.t_pu_earliest + self.init_direct_tt + boarding_time > self.t_do_latest:
             raise EnvironmentError(f"cant be fulfilled within time constraints: {self.t_pu_earliest} + {self.init_direct_tt} > {self.t_do_latest}")
-        
+        # To here
+        """
         self.max_trip_time = float("inf")
         self.locked = False
         # offer
