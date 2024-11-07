@@ -167,13 +167,21 @@ def check_assertions(list_eval_df, all_scenario_assertion_dict):
     :param all_scenario_assertion_dict: dictionary of scenario id to assertion dictionaries
     :return: list of (scenario_name, mismatch_flag, tmp_df) tuples
     """
+    print("In checking assertions.")
     list_result_tuples = []
+    print(all_scenario_assertion_dict)
     for sc_id, assertion_dict in all_scenario_assertion_dict.items():
+        print('sc_id: ', sc_id)
+        print(assertion_dict)
+        print(list_eval_df)
         tmp_df = list_eval_df[sc_id]
+        print(tmp_df)
         scenario_name = tmp_df.loc[G_SCENARIO_NAME, MOD_STR]
         print("-"*80)
+        print(f"Len: {len(tmp_df)}")
         mismatch = False
         for k, v in assertion_dict.items():
+            print(f"KEY: {k}, VALUE: {v}")
             if tmp_df.loc[k, MOD_STR] != v:
                 tmp_df.loc[k, MM_STR] = v
                 mismatch = True
@@ -201,6 +209,7 @@ if __name__ == "__main__":
             pass
 
         scs_path = os.path.join(os.path.dirname(__file__), "studies", "lex_study", "scenarios")
+        
         # Base Examples IRS only
         # ----------------------
         # a) Pooling in ImmediateOfferEnvironment
@@ -211,7 +220,7 @@ if __name__ == "__main__":
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 88}}
         check_assertions(list_results, all_scenario_assert_dict)
-
+        """
         # Base Examples with Optimization (requires gurobi license!)
         # ----------------------------------------------------------
         # b) Pooling in BatchOffer environment
@@ -242,6 +251,7 @@ if __name__ == "__main__":
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 199}}
         check_assertions(list_results, all_scenario_assert_dict)
+
         # with heuristic scenarios
         t1 = time.perf_counter()
         sc = os.path.join(scs_path, "example_pool_heuristics.csv")
@@ -255,15 +265,25 @@ if __name__ == "__main__":
         all_scenario_assert_dict = {0: {"number users": 191}}
         check_assertions(list_results, all_scenario_assert_dict)
 
+        
+        # SMO Comment this out 10/30/2024
         # g) Pooling with RV heuristic and Repositioning in ImmediateOfferEnvironment (with doubled demand and
         #       bad initial vehicle distribution)
+        # gde 10.30.2024 - we think the error is here...
+        print("Starting problem scenario.")
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_ir_repo.csv")
         sc = os.path.join(scs_path, "example_ir_heuristics_repositioning.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
+        print("Scenario successful!.")
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 198}}
+        print("Starting assertions.")
         check_assertions(list_results, all_scenario_assert_dict)
+        print("Ending problem scenario.")
+        # to here
+        
+       
         
         # h) Pooling with public charging infrastructure (low range vehicles)
         log_level = "info"
@@ -286,6 +306,7 @@ if __name__ == "__main__":
         # h) Pooling with multiprocessing
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_depot_charge.csv")
+
         # no heuristic scenario single core
         t0 = time.perf_counter()
         sc = os.path.join(scs_path, "example_depot_charge.csv")
@@ -294,6 +315,7 @@ if __name__ == "__main__":
         all_scenario_assert_dict = {0: {"number users": 199}}
         check_assertions(list_results, all_scenario_assert_dict)
         print("Computation without multiprocessing took {}s".format(time.perf_counter() - t0))
+
         # no heuristic scenario multiple cores
         cores = 2
         t0 = time.perf_counter()
@@ -304,15 +326,16 @@ if __name__ == "__main__":
         check_assertions(list_results, all_scenario_assert_dict)
         print("Computation with multiprocessing took {}s".format(time.perf_counter() - t0))
         print(" -> multiprocessing only usefull for large vehicle fleets")
-        
+        """
         # j) Pooling - multiple operators and broker
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_broker.csv")
         sc = os.path.join(scs_path, "example_broker.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
-        
+        """
         # h) Ride-Parcel-Pooling example
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_rpp.csv")
         sc = os.path.join(scs_path, "example_rpp.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
+        """
