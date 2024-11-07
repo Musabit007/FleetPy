@@ -392,11 +392,17 @@ class Depot(ChargingStation):
         :param veh_obj: vehicle obj"""
         LOG.debug(f"activate vid {veh_obj.vid} in depot {self.id} with parking vids {[x.vid for x in self.deactivated_vehicles]}")
         self.deactivated_vehicles.remove(veh_obj)
-        
+    # SMO Debug a ValueError:   
     def pick_vehicle_to_be_active(self) -> SimulationVehicle:
         """ selects the vehicle with highest soc from the list of deactivated vehicles (does not activate the vehicle yet!)
         :return: simulation vehicle obj"""
-        return max([veh for veh in self.deactivated_vehicles if veh.pos == self.pos], key = lambda x:x.soc)
+    # Debug:
+        vehicles = [veh for veh in self.deactivated_vehicles if veh.pos == self.pos]
+        if vehicles:
+            return max(vehicles, key=lambda x: x.soc)
+        else:
+            return None
+        #return max([veh for veh in self.deactivated_vehicles if veh.pos == self.pos], key = lambda x:x.soc)
     
     def refill_charging(self, fleetctrl: FleetControlBase, simulation_time, keep_free_for_short_term=0):
         """This method fills empty charging slots in a depot with the lowest SOC parking (status 5) vehicles.
