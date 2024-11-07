@@ -716,7 +716,16 @@ class FleetSimulationBase:
                     for sim_time in range(self.start_time, self.end_time, self.time_step):
                         remaining_requests = sum([len(x) for x in self.demand.future_requests.values()])
                         self.step(sim_time)
-                        cur_perc = int(100 * (1 - remaining_requests/all_requests))
+
+                         #SMO Debug: 11/05/2024
+                        if all_requests != 0:
+                            cur_perc = int(100 * (1 - remaining_requests / all_requests))
+                        else:
+                            cur_perc = 100  # or any default percentage you'd prefer when there's no demand
+
+                        #SMO Debug: Comment  out, 11/05/2024
+                        #cur_perc = int(100 * (1 - remaining_requests/all_requests))
+                        
                         pbar.update(cur_perc - pbar.n)
                         vehicle_counts = self.count_fleet_status()
                         info_dict = {"simulation_time": sim_time,
