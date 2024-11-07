@@ -205,6 +205,7 @@ def standard_evaluation(output_dir, evaluation_start_time = None, evaluation_end
     :param end_time: end time of evaluation interval in s   (if None, then evalation of all data until sim end)
     :param print_comments: print some comments about status in between
     """
+    print("Starting standard evaluation.")
     if not os.path.isdir(output_dir):
         raise IOError(f"Could not find result directory {output_dir}!")
     
@@ -255,7 +256,13 @@ def standard_evaluation(output_dir, evaluation_start_time = None, evaluation_end
     number_users = user_stats.shape[0]
     number_total_travelers = user_stats[G_RQ_PAX].sum()
 
+    print('number_users ', number_users)
+    print(user_stats)
+    user_stats.to_csv('temp_user_stats.csv')
+    print('G_RQ_OP_ID', G_RQ_OP_ID)
+
     for op_id, op_users in user_stats.groupby(G_RQ_OP_ID):
+        print("Tabulating results: op_id ", op_id, " op_users ", op_users)
         op_name = "?"
         
         op_reservation_horizon = list_operator_attributes[int(op_id)].get(G_RA_OPT_HOR,0)
@@ -588,10 +595,12 @@ def standard_evaluation(output_dir, evaluation_start_time = None, evaluation_end
         result_dict_list.append(result_dict)
         operator_names.append(op_name)
 
-    # combine and save
+    # combine and save    
     result_df = pd.DataFrame(result_dict_list, index=operator_names)
     result_df = result_df.transpose()
     result_df.to_csv(os.path.join(output_dir, "standard_eval.csv"))
+
+    print(result_df)
 
     return result_df
 
