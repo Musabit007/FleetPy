@@ -7,6 +7,8 @@ from src.fleetctrl.planning.PlanRequest import PlanRequest
 import numpy as np
 import pandas as pd
 import time
+import math
+import sys
 from src.fleetctrl.RidePoolingBatchOptimizationFleetControlBase import RidePoolingBatchOptimizationFleetControlBase
 from src.fleetctrl.PoolingIRSBatchOptimization import PoolingIRSAssignmentBatchOptimization
 from src.fleetctrl.pooling.immediate.insertion import single_insertion, insertion_with_heuristics
@@ -143,7 +145,14 @@ class BrokerDecisionCtrl(PoolingIRSAssignmentBatchOptimization):
         # additional driven kilometers: offer_dict_without_plan["add_fleet_vmt"]
         if assigned_vehicle_plan is not None: # create offer attributes
             pu_time, do_time = assigned_vehicle_plan.pax_info.get(prq.get_rid_struct())
-            offer = TravellerOffer(prq.get_rid_struct(), self.op_id, pu_time - prq.rq_time, do_time - pu_time, int(prq.init_direct_td * self.dist_fare + self.base_fare),
+
+        # SMO DEBUG: 10/30/2024 Calculate fare and check for large/infinite values
+            fare = prq.init_direct_td * self.dist_fare + self.base_fare
+            if math.isinf(fare) or fare > sys.maxsize:
+                fare = sys.maxsize  # Assign max integer if the fare is too large or infinity
+        # SMO DEBUG: 10/30/2024 Convert to integer after ensuring the value is within limits
+            #offer = TravellerOffer(prq.get_rid_struct(), self.op_id, pu_time - prq.rq_time, do_time - pu_time, int(prq.init_direct_td * self.dist_fare + self.base_fare),
+            offer = TravellerOffer(prq.get_rid_struct(), self.op_id, pu_time - prq.rq_time, do_time - pu_time, int(fare),
                 additional_parameters={G_OFFER_ADD_VMT : offer_dict_without_plan[G_OFFER_ADD_VMT]})
             prq.set_service_offered(offer)  # has to be called
         else: # rejection
