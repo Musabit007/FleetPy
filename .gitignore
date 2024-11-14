@@ -14,6 +14,7 @@ data/fleetctrl/elastic_fleet_size/*
 data/infra/*
 data/networks/*
 !data/networks/lex_network
+data/networks/lex_network/base/TEMP/*
 !data/networks/example_network
 data/networks/example_network/ff/*
 data/networks/example_network/ch_graph/*
