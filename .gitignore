@@ -29,6 +29,8 @@ data/zones/*
 studies/*
 !studies/example_study
 studies/example_study/results/*
+!studies/lex_study
+studies/lex_study/results/*
 
 # system dependent C++ Router files
 src/routing/cpp_router/*.pyd
