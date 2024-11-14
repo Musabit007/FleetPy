@@ -231,7 +231,7 @@ if __name__ == "__main__":
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 91}}
         check_assertions(list_results, all_scenario_assert_dict)
-
+        
          # c) Pooling in ImmediateOfferEnvironment
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_ir.csv")
@@ -240,7 +240,7 @@ if __name__ == "__main__":
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 90}}
         check_assertions(list_results, all_scenario_assert_dict)
-
+        
         # d) Pooling with RV heuristics in ImmediateOfferEnvironment (with doubled demand)
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_ir.csv")
@@ -251,7 +251,7 @@ if __name__ == "__main__":
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 199}}
         check_assertions(list_results, all_scenario_assert_dict)
-
+        
         # with heuristic scenarios
         t1 = time.perf_counter()
         sc = os.path.join(scs_path, "example_pool_heuristics.csv")
@@ -264,7 +264,7 @@ if __name__ == "__main__":
               f"| with heuristics 2 CPU: {round(t3-t2,1)}")
         all_scenario_assert_dict = {0: {"number users": 191}}
         check_assertions(list_results, all_scenario_assert_dict)
-
+        
         
         # SMO Comment this out 10/30/2024
         # g) Pooling with RV heuristic and Repositioning in ImmediateOfferEnvironment (with doubled demand and
@@ -283,7 +283,7 @@ if __name__ == "__main__":
         print("Ending problem scenario.")
         # to here
         
-       
+        
         
         # h) Pooling with public charging infrastructure (low range vehicles)
         log_level = "info"
@@ -326,13 +326,13 @@ if __name__ == "__main__":
         check_assertions(list_results, all_scenario_assert_dict)
         print("Computation with multiprocessing took {}s".format(time.perf_counter() - t0))
         print(" -> multiprocessing only usefull for large vehicle fleets")
-        """
+        
         # j) Pooling - multiple operators and broker
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_broker.csv")
         sc = os.path.join(scs_path, "example_broker.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
-        """
+        
         # h) Ride-Parcel-Pooling example
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_rpp.csv")
