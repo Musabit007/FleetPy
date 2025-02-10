@@ -1,0 +1,3 @@
+The spatial network in the form of nodes and edges used for this project was built through the OSMnx framework. 
+OSMnx is a network analysis Python package, and GeoPandas for downloading, modeling, analyzing, and visualizing urban networks and any other geospatial features from OpenStreetMap data.
+The trip demand was an estimated ride-hailing trip in Kentucky, Lexington (2019 Average Weekday Conditions).
