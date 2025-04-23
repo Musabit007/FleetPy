@@ -5,7 +5,7 @@
         "network_type": "NetworkBasicWithStore",
         "network_name": "lex_network",
         "demand_name": "lex_demand",
-        "rq_file": "example_100.csv",
+        "rq_file": "ukhealthcare_demand.csv",
         "random_seed": 0,
         "start_time": 0,
         "end_time": 86400,

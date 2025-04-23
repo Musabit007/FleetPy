@@ -212,13 +212,13 @@ if __name__ == "__main__":
         
         # Base Examples IRS only
         # ----------------------
-        # a) Pooling in ImmediateOfferEnvironment
+        # b) Pooling in BatchOffer environment
         log_level = "info"
-        cc = os.path.join(scs_path, "constant_config_ir.csv")
-        sc = os.path.join(scs_path, "example_ir_only.csv")
+        cc = os.path.join(scs_path, "constant_config_ukhealth.csv")
+        sc = os.path.join(scs_path, "ukhealth_pool.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
         list_results = read_outputs_for_comparison(cc, sc)
-        all_scenario_assert_dict = {0: {"number users": 88}}
+        all_scenario_assert_dict = {0: {"number users": 91}}
         check_assertions(list_results, all_scenario_assert_dict)
         """
         # Base Examples with Optimization (requires gurobi license!)

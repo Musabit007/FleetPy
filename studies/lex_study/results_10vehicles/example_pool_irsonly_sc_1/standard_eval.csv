@@ -1,0 +1,49 @@
+,MoD_0
+operator_id,0.0
+number users,264.0
+number travelers,264.0
+modal split,0.0854368932038835
+modal split rq,0.0854368932038835
+reservation users,0.0
+reservation pax,0.0
+served reservation users [%],100.0
+served reservation pax [%],100.0
+online users,264.0
+online pax,264.0
+served online users [%],8.54368932038835
+served online pax [%],8.54368932038835
+% created offers,8.54368932038835
+utility,
+travel time,1828.9911676892925
+travel distance,
+waiting time,770.4972492343401
+waiting time from ept,770.4972492343408
+waiting time (median),854.2068161341522
+waiting time (90% quantile),1169.3350361599962
+detour time,311.6803449469836
+rel detour,13.428809045881204
+% fleet utilization,34.44381499295942
+rides per veh rev hours,3.1936067483373964
+rides per veh rev hours rq,3.1936067483373964
+total vkm,5682.592194999999
+occupancy,1.5948583934941336
+occupancy rq,1.5948583934941336
+% empty vkm,9.891193274339829
+% repositioning vkm,0.0
+customer direct distance [km],7851.462
+saved distance [%],27.623770006146643
+trip distance per fleet distance,1.381669092304098
+trip distance per fleet distance (no reloc),1.381669092304098
+avg driving velocity [km/h],70.74633140765732
+avg trip velocity [km/h],0.05853794856995126
+vehicle revenue hours [Fzg h],82.66515598310261
+total toll,0.0
+mod revenue,785023.0
+mod fix costs,25000.0
+mod var costs,142065.0
+total CO2 emissions [t],0.0031822516291999995
+total external emission costs,46.0
+parking cost,
+toll,0.0
+customer in vehicle distance,34329.27976893942
+shared rides [%],96.21212121212122

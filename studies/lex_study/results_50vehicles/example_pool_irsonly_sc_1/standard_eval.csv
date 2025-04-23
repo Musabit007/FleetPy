@@ -1,49 +1,49 @@
 ,MoD_0
 operator_id,0.0
-number users,1784.0
-number travelers,1784.0
-modal split,0.9988801791713325
-modal split rq,0.9988801791713325
+number users,960.0
+number travelers,960.0
+modal split,0.3127035830618892
+modal split rq,0.3127035830618892
 reservation users,0.0
 reservation pax,0.0
 served reservation users [%],100.0
 served reservation pax [%],100.0
-online users,1784.0
-online pax,1784.0
-served online users [%],99.88801791713325
-served online pax [%],99.88801791713325
-% created offers,99.88801791713325
+online users,960.0
+online pax,960.0
+served online users [%],31.27035830618892
+served online pax [%],31.27035830618892
+% created offers,31.27035830618892
 utility,
-travel time,537.3362802608365
+travel time,1842.299079627955
 travel distance,
-waiting time,540.1194436618758
-waiting time from ept,540.1194436618716
-waiting time (median),527.37048516902
-waiting time (90% quantile),1000.6852539887988
-detour time,45.16304917765147
-rel detour,7.697702583202429
-% fleet utilization,24.38338805112574
-rides per veh rev hours,6.0970471517309495
-rides per veh rev hours rq,6.0970471517309495
-total vkm,12721.341631000001
-occupancy,0.9098923681754868
-occupancy rq,0.9098923681754868
-% empty vkm,47.8989838080546
+waiting time,673.3895766979456
+waiting time from ept,673.3895766979472
+waiting time (median),714.7472802328157
+waiting time (90% quantile),1130.1612574118626
+detour time,316.59489027317903
+rel detour,12.860582666723857
+% fleet utilization,25.63694385075838
+rides per veh rev hours,3.1204967513174733
+rides per veh rev hours rq,3.1204967513174733
+total vkm,21584.258517
+occupancy,1.5476129179369578
+occupancy rq,1.5476129179369578
+% empty vkm,7.2650834068028605
 % repositioning vkm,0.0
-customer direct distance [km],10951.689514
-saved distance [%],-16.15871336324666
-trip distance per fleet distance,0.8608910782894451
-trip distance per fleet distance (no reloc),0.8608910782894451
-avg driving velocity [km/h],46.77525769481627
-avg trip velocity [km/h],0.04112847522320633
-vehicle revenue hours [Fzg h],292.6006566135089
+customer direct distance [km],28996.101766000003
+saved distance [%],25.561516195569844
+trip distance per fleet distance,1.343391145133031
+trip distance per fleet distance (no reloc),1.343391145133031
+avg driving velocity [km/h],72.21593265464347
+avg trip velocity [km/h],0.059021568661076836
+vehicle revenue hours [Fzg h],307.64332620910056
 total toll,0.0
-mod revenue,1094374.0
+mod revenue,2899131.0
 mod fix costs,125000.0
-mod var costs,318035.0
-total CO2 emissions [t],0.007123951313359999
-total external emission costs,103.0
+mod var costs,539605.0
+total CO2 emissions [t],0.012087184769519999
+total external emission costs,175.0
 parking cost,
 toll,0.0
-customer in vehicle distance,6488.257658632331
-shared rides [%],71.30044843049328
+customer in vehicle distance,34795.91385937501
+shared rides [%],95.0
