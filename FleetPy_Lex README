@@ -1,3 +1,32 @@
-The spatial network in the form of nodes and edges used for this project was built through the OSMnx framework. 
-OSMnx is a network analysis Python package, and GeoPandas for downloading, modeling, analyzing, and visualizing urban networks and any other geospatial features from OpenStreetMap data.
-The trip demand was an estimated ride-hailing trip in Kentucky, Lexington (2019 Average Weekday Conditions).
+FleetPy_Lex is a branch of the main FleetPy repository. It is a customized framework designed to evaluate the benefit of implementing shuttle services for healthcare access, in comparison to the cost of missed medical appointments. This project uses the University of Kentucky Healthcare system as a case study.
+This repository contains all the necessary code and files used in the analysis, supporting reproducibility in every process step.
+
+Project Workflow
+1. Medical Trip Analysis
+Before estimating shuttle demand and costs, we analyzed trends in medical travel using a cross-classification model. This model estimates medical trip production by census tract across the state of Kentucky.
+    •	Notebook: Kentucky_State_Medical_Visit.ipynb
+
+2. Healthcare Job Locations (Trip Attraction)
+To understand where people travel for medical care, we used the Longitudinal Employer-Household Dynamics (LEHD) data to identify the locations of healthcare jobs. These serve as trip attraction points in the model.
+    •	Notebook: Healthcare_Jobs_in_Kentucky.ipynb
+
+3. Gravity Model (Trip Distribution)
+A singly-constrained gravity model was used to estimate how medical trips are distributed across census tracts based on destination attractiveness. The result is an Origin-Destination (O-D) trip matrix.
+We performed two versions of this analysis:
+    •	Distance-based model: Singly_Gravity_Distance.ipynb
+    •	Time-based model: Singly_Gravity_Time.ipynb
+
+4. Fleet Simulation with FleetPy
+We used the FleetPy simulation framework to model shuttle service operations. For our case, we adopted the ImmediateDecisionsSimulation (IDS) module instead of BatchOfferSimulation (BOS).
+    •	Configuration files:
+    o	constant_config_pool.csv
+    o	example_pool.csv
+    •	Input data generated from notebooks:
+    o	Demand file: demand_for_fleetpy.ipynb
+    o	Network file: KY_Network.ipynb
+For instructions on setting up and running FleetPy, please refer to the main FleetPy repository.
+
+5. Cost Estimation Summary
+Simulation outputs (e.g., user count, trip distances, modal split rates, total mileage) were compiled to estimate shuttle service operational costs.
+    •	Output summary file: Scheduling_vs_non_scheduling_Summary.xlsx
+
