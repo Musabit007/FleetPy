@@ -1,5 +1,5 @@
 FleetPy_Lex is a branch of the main FleetPy repository. It is a customized framework designed to evaluate the benefit of implementing shuttle services for healthcare access, in comparison to the cost of missed medical appointments. This project uses the University of Kentucky Healthcare system as a case study.
-This repository contains all the necessary code and files used in the analysis, supporting reproducibility in every process step.
+This repository contains all the necessary code and files used in the analysis, supporting reproducibility in every process step. Every file can be used as it appears, except for those in zip format, which must be modified to a CSV format before use.
 
 Project Workflow
 1. Medical Trip Analysis
